@@ -1,6 +1,6 @@
 # 🏗 BuildingConnected Login Automation
 
-This project automates login to BuildingConnected and extracts specified project/account data using Selenium.
+This project automates login to BuildingConnected and extracts specified project/account data using Requests.
 
 ## 🔧 Setup
 
