@@ -47,6 +47,7 @@ time.sleep(10)
 driver.get(driver.current_url)
 flat_data = []
 print(driver.current_url)
+time.sleep(5)
 for request in driver.requests:
     # Step 3: Query API which provides json data related to the companies
     if request.response and "searchv3/welcome-flow" in request.url:
