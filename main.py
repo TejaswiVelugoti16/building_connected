@@ -35,8 +35,9 @@ driver = webdriver.Chrome(
 
 # Step 1: Open Login Page
 driver.get("https://app.buildingconnected.com/login?retUrl=%2F")
-print("[🌐] Login page opened.")
-print("[🔐] log in manually (Autodesk + 2FA) and select your company.")
+print(" Login page opened.")
+print(" log in manually (Autodesk + 2FA) and select your company.")
+time.sleep(10)
 
 expected_text = "What's the name of your company?"
 WebDriverWait(driver, 200).until(
@@ -49,9 +50,9 @@ print(driver.current_url)
 for request in driver.requests:
     # Step 3: Query API which provides json data related to the companies
     if request.response and "searchv3/welcome-flow" in request.url:
-        print("✅ Found API Request:")
+        print(" Found API Request:")
         #Step 2: Extract cookies and make the API call
-        print("[🍪] Extracting session cookies...")
+        print(" Extracting session cookies...")
         session = requests.Session()
         for cookie in driver.get_cookies():
             session.cookies.set(cookie['name'], cookie['value'])
@@ -63,7 +64,7 @@ for request in driver.requests:
         print("URL:", request.url)
         url = request.url
         search_query = re.search(r"[?&]query=([^&]+)", url).group(1)
-        print(f"[🔗] Fetching data from: {url}")
+        print(f"Fetching data from: {url}")
         time.sleep(20)
         response = session.get(url, headers=headers)
 
@@ -82,10 +83,10 @@ for request in driver.requests:
                 })
 
                 delay = random.uniform(2, 5)
-                print(f"⏳ Sleeping for {delay:.2f} seconds...")
+                print(f"Sleeping for {delay:.2f} seconds...")
                 time.sleep(delay)
         else:
-            print(f"[❌] API request failed: {response.status_code} - {response.text}")
+            print(f"API request failed: {response.status_code} - {response.text}")
 if flat_data != []:
     #Save data in csv format
     with open(f"output/{search_query}_data.csv", "w", newline="", encoding="utf-8") as f:
@@ -97,7 +98,7 @@ if flat_data != []:
     with open(f"output/{search_query}_data.json", "w") as f:
         json.dump(flat_data, f, indent=2)
 
-    print(f"[✅] Saved {len(flat_data)} results to 'output/company_data.csv'")
+    print(f"Saved {len(flat_data)} results to 'output/company_data.csv'")
     # Close browser
     driver.quit()
 
