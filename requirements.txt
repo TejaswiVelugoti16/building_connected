@@ -2,3 +2,4 @@ selenium
 webdriver-manager
 fake-useragent
 requests
+selenium-wire
